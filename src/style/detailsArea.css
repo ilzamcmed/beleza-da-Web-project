@@ -1,0 +1,15 @@
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 50px 0 20px;
+  text-transform: uppercase;
+}
+
+.orange-text {
+  color: #ff7800;
+}
+
+/* .details-area {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+} */
