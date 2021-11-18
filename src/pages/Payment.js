@@ -10,11 +10,9 @@ import { useAuth } from "../providers/auth";
 const Payment = () => {
   const history = useHistory();
   const { details, setDetails, products } = useAuth();
-  let disabled = true;
 
   const routeChange = () => {
     history.push(`/confirmacao`, { products: products, ...details });
-    console.log(details);
   };
 
   const routeBack = () => {
@@ -31,7 +29,6 @@ const Payment = () => {
     ) {
       return true;
     } else {
-      disabled = false;
       return false;
     }
   };
