@@ -1,34 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Nav from "../components/Nav";
 import ProductCard from "../components/ProductCard";
 import DetailsArea from "../components/DetailsArea";
 import Button from "../components/Button";
-import api from "../api";
 import "../style/bag.css";
 import { useHistory } from "react-router-dom";
+import { useAuth } from "../providers/auth";
 
 const Bag = () => {
   const history = useHistory();
-  const [products, setProducts] = useState(() => {
-    return [];
-  });
-
-  const getProducts = async () => {
-    try {
-      const response = await api.get("");
-      setProducts(() => response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { products } = useAuth();
 
   const routeChange = () => {
-    history.push(`/pagamento`, { products: products });
+    history.push(`/pagamento`);
   };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   return (
     <Nav>

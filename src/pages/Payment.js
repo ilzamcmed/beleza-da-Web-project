@@ -1,30 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Nav from "../components/Nav";
 import "../style/payment.css";
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import DetailsArea from "../components/DetailsArea";
 import CredictCardInputs from "../components/CredictCardInputs";
 import Button from "../components/Button";
+import { useAuth } from "../providers/auth";
 
 const Payment = () => {
-  const location = useLocation();
   const history = useHistory();
-  const products = location.state.products;
-  let details;
-
-  // useEffect(() => {
-  //   if (!location.state) {
-  //     history.push("/");
-  //   }
-  // }, [location, history]);
+  const { details, setDetails, products } = useAuth();
+  let disabled = true;
 
   const routeChange = () => {
-    history.push(`/confirmacao`, { products: products, details: details });
+    history.push(`/confirmacao`, { products: products, ...details });
     console.log(details);
   };
 
   const routeBack = () => {
+    setDetails({ creditCard: "", name: "", valid: "", cvv: "" });
     history.push(`/`);
+  };
+
+  const handleNoData = () => {
+    if (
+      details.creditCard === "" ||
+      details.name === "" ||
+      details.valid === "" ||
+      details.cvv === ""
+    ) {
+      return true;
+    } else {
+      disabled = false;
+      return false;
+    }
   };
 
   return (
@@ -35,7 +44,11 @@ const Payment = () => {
       <p className="bag-title">CARTÃO DE CRÉDITO</p>
       <CredictCardInputs creditCardData={details} />
       <DetailsArea products={products} />
-      <Button text="finalizar pedido" action={routeChange} />
+      <Button
+        text="finalizar pedido"
+        action={routeChange}
+        disabled={handleNoData()}
+      />
     </Nav>
   );
 };

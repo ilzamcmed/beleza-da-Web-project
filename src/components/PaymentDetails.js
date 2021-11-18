@@ -1,14 +1,17 @@
 import React from "react";
+import { useAuth } from "../providers/auth";
 import "../style/paymentDetails.css";
 
 const PaymentDetails = () => {
+  const { details } = useAuth();
+  const finalNumber = details.creditCard.substr(12);
   return (
     <div>
       <p className="big-title">Pagamento</p>
       <div className="cc-container">
-        <span>****.****.****.1234</span>
-        <span>José da Silva</span>
-        <span>05/2019</span>
+        <span>****.****.****.{finalNumber}</span>
+        <span>{details.name}</span>
+        <span>{details.valid}</span>
       </div>
     </div>
   );

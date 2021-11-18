@@ -20,3 +20,7 @@
 .btn::before {
   color: #000;
 }
+
+.btn.disabled {
+  opacity: 0.2;
+}
